@@ -10,5 +10,6 @@ public class HomePageTest  extends BaseClass {
     public void BookStore() throws InterruptedException {
         pageFactory.getHomePage().books();
         pageFactory.getHomePage().booksApi();
+        pageFactory.getHomePage().booksVerify();
     }
 }
