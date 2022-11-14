@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Tools QA">
+
+    <test name="Navigate to Book store">
+        <parameter name="browserName" value="chrome"></parameter>
+        <classes>
+            <class name="Test.HomePageTest"/>
+        </classes>
+    </test>
+</suite>
