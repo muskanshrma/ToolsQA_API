@@ -6,8 +6,7 @@ public class HomePageTest  extends BaseClass {
 
     @Test
     public void BookStore() throws InterruptedException {
-        pageFactory.getHomePage().books();
-        pageFactory.getHomePage().booksApi();
-        pageFactory.getHomePage().booksVerify();
+        pageFactory.getHomePage().NavigateToWebsite();
+        pageFactory.getHomePage().FetchAndValidateBookDetails();
     }
 }

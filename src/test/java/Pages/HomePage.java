@@ -35,7 +35,7 @@ public class HomePage {
         wait = new WebDriverWait(driver, Duration.ofSeconds(17));
     }
 
-    public void books() throws InterruptedException {
+    public void NavigateToWebsite() throws InterruptedException {
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("scrollBy(0, 1000)");
@@ -46,7 +46,7 @@ public class HomePage {
         Assert.assertEquals(actual, ToolsQA_enum.Menu_items.getResourcesName(), "Validation failed");
     }
 
-    public void booksApi() {
+    public void FetchAndValidateBookDetails() {
         RestAssured.baseURI = "https://demoqa.com";
         RequestSpecification httpRequest = RestAssured.given();
         Response response = httpRequest.get("BookStore/v1/Books");
@@ -83,24 +83,5 @@ public class HomePage {
         System.out.println(pub);
         String actualPub = driver.findElement(BookPublisher).getText();
         Assert.assertEquals(actualPub, pub, "Validation failed");
-    }
-
-    public void booksVerify() {
-        RestAssured.baseURI = "https://demoqa.com";
-        RequestSpecification httpRequest = RestAssured.given();
-        Response response = httpRequest.get("BookStore/v1/Books");
-        JsonPath jsonPathEvaluator = response.jsonPath();
-        List<String> BookName = jsonPathEvaluator.getList("books.title");
-        System.out.println("Book: " + BookName.get(0));
-        String actualName = driver.findElement(BookTitle).getText();
-        Assert.assertEquals(actualName, BookName.get(0), "Validation failed");
-        List<String> AuthorName = jsonPathEvaluator.getList("books.author");
-        System.out.println("Author: " + AuthorName.get(0));
-        String actualAuth = driver.findElement(BookAuthor).getText();
-        Assert.assertEquals(actualAuth, AuthorName.get(0), "Validation failed");
-        List<String> PublisherName = jsonPathEvaluator.getList("books.publisher");
-        System.out.println("Publisher: " + PublisherName.get(0));
-        String actual = driver.findElement(BookPublisher).getText();
-        Assert.assertEquals(actual, PublisherName.get(0), "Validation failed");
     }
 }
