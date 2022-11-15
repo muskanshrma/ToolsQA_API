@@ -15,7 +15,8 @@ public class BooksPojo {
         this.Book=title;
         this.Author=author;
         this.Publisher=publisher;
-}
+    }
+
     public String getAuthor() {
         return Author;
     }

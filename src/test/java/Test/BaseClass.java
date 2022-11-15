@@ -6,7 +6,6 @@ import Pages.PageFactory;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
-
 import java.net.MalformedURLException;
 
 public class BaseClass {

@@ -10,7 +10,6 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
 import io.restassured.specification.RequestSpecification;
-import org.json.simple.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -26,7 +25,6 @@ public class HomePage {
     WebDriver driver;
     WebDriverWait wait;
     String MenuBar = "//h5[contains(text(),'%s')]";
-
     By LandingPage = By.xpath("//div[@class='main-header']");
     By BookTitle = By.xpath("(//span[@class='mr-2']//a)[1]");
     By BookAuthor = By.xpath("(//div[@class='rt-td'])[3]");
@@ -62,13 +60,13 @@ public class HomePage {
         List<BooksPojo> books = new ArrayList<>();
         for (JsonElement booksElement : booksList.getAsJsonArray()) {
             JsonObject jsonObj = booksElement.getAsJsonObject();
-            BooksPojo bookData = new BooksPojo(jsonObj.get("title").toString(), jsonObj.get("author").toString(), jsonObj.get("publisher").toString());
+            BooksPojo bookData = new BooksPojo(jsonObj.get("title").getAsString(), jsonObj.get("author").getAsString(), jsonObj.get("publisher").getAsString());
             books.add(bookData);
             System.out.println(bookData);
         }
         int statusCode = response.getStatusCode();
         Assert.assertEquals(statusCode, 200, "Status code error");
-        System.out.println(statusCode);
+        System.out.println("Status Code= " + statusCode);
 
         BooksPojo booksPojo = books.get(0);
         String BookName = booksPojo.getBook();
@@ -83,7 +81,7 @@ public class HomePage {
 
         String pub = booksPojo.getPublisher();
         System.out.println(pub);
-        String actualPub = driver.findElement(BookAuthor).getText();
+        String actualPub = driver.findElement(BookPublisher).getText();
         Assert.assertEquals(actualPub, pub, "Validation failed");
     }
 
@@ -95,14 +93,14 @@ public class HomePage {
         List<String> BookName = jsonPathEvaluator.getList("books.title");
         System.out.println("Book: " + BookName.get(0));
         String actualName = driver.findElement(BookTitle).getText();
-        Assert.assertEquals(actualName, BookName, "Validation failed");
+        Assert.assertEquals(actualName, BookName.get(0), "Validation failed");
         List<String> AuthorName = jsonPathEvaluator.getList("books.author");
         System.out.println("Author: " + AuthorName.get(0));
-        String actualAuthor = driver.findElement(BookAuthor).getText();
-        Assert.assertEquals(actualAuthor, AuthorName, "Validation failed");
+        String actualAuth = driver.findElement(BookAuthor).getText();
+        Assert.assertEquals(actualAuth, AuthorName.get(0), "Validation failed");
         List<String> PublisherName = jsonPathEvaluator.getList("books.publisher");
         System.out.println("Publisher: " + PublisherName.get(0));
         String actual = driver.findElement(BookPublisher).getText();
-        Assert.assertEquals(actual, PublisherName, "Validation failed");
+        Assert.assertEquals(actual, PublisherName.get(0), "Validation failed");
     }
 }
